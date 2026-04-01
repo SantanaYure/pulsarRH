@@ -1,0 +1,44 @@
+.section {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 72rem;
+}
+
+.card {
+  width: min(100%, 44rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 28px;
+  background: rgba(10, 17, 32, 0.78);
+  box-shadow: 0 22px 70px rgba(2, 6, 23, 0.28);
+  backdrop-filter: blur(18px);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  color: #f8fafc;
+}
+
+.subtitle {
+  margin: 0;
+  color: #94a3b8;
+}
+
+@media (max-width: 640px) {
+  .card {
+    width: 100%;
+    padding: 1.25rem;
+    border-radius: 22px;
+  }
+}
