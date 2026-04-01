@@ -4,9 +4,10 @@ import type { MessageFormData } from '../../features/message-generator/types'
 
 type SubmissionPreviewProps = {
   data: MessageFormData
+  mensagem?: string
 }
 
-export function SubmissionPreview({ data }: SubmissionPreviewProps) {
+export function SubmissionPreview({ data, mensagem }: SubmissionPreviewProps) {
   return (
     <div className={styles.preview}>
       <h3 className={styles.previewTitle}>Ultimo envio preparado</h3>
@@ -18,6 +19,13 @@ export function SubmissionPreview({ data }: SubmissionPreviewProps) {
           </div>
         ))}
       </dl>
+
+      {mensagem ? (
+        <div className={styles.messageBox}>
+          <h4 className={styles.messageTitle}>Mensagem retornada</h4>
+          <p className={styles.messageContent}>{mensagem}</p>
+        </div>
+      ) : null}
     </div>
   )
 }

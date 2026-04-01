@@ -37,3 +37,23 @@
   color: #e2e8f0;
   word-break: break-word;
 }
+
+.messageBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(186, 230, 253, 0.18);
+}
+
+.messageTitle {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #bae6fd;
+}
+
+.messageContent {
+  margin: 0;
+  white-space: pre-wrap;
+  color: #e2e8f0;
+}

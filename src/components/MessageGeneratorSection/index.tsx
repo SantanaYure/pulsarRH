@@ -3,17 +3,25 @@ import { useState } from 'react'
 import styles from './MessageGeneratorSection.module.css'
 import { MessageForm } from '../MessageForm'
 import { SubmissionPreview } from '../SubmissionPreview'
-import { createMockMessageSubmissionService } from '../../features/message-generator/services/messageSubmissionService'
-import type { MessageFormData } from '../../features/message-generator/types'
+import { createMakeWebhookSubmissionService } from '../../features/message-generator/services/messageSubmissionService'
+import type {
+  MessageFormData,
+  MessageSubmissionResult,
+} from '../../features/message-generator/types'
 
-const submissionService = createMockMessageSubmissionService()
+const submissionService = createMakeWebhookSubmissionService()
 
 export function MessageGeneratorSection() {
   const [submittedData, setSubmittedData] = useState<MessageFormData | null>(null)
+  const [submissionResult, setSubmissionResult] =
+    useState<MessageSubmissionResult | null>(null)
 
   async function handleMessageSubmit(formData: MessageFormData) {
-    await submissionService.submit(formData)
+    const response = await submissionService.submit(formData)
     setSubmittedData(formData)
+    setSubmissionResult(response)
+
+    return response
   }
 
   return (
@@ -28,7 +36,9 @@ export function MessageGeneratorSection() {
 
         <MessageForm onSubmitForm={handleMessageSubmit} />
 
-        {submittedData ? <SubmissionPreview data={submittedData} /> : null}
+        {submittedData ? (
+          <SubmissionPreview data={submittedData} mensagem={submissionResult?.mensagem} />
+        ) : null}
       </div>
     </section>
   )

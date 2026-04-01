@@ -4,6 +4,7 @@ import { initialMessageFormData } from '../constants'
 import type {
   MessageFormData,
   MessageFormSubmitHandler,
+  MessageSubmissionResult,
 } from '../types'
 
 export function useMessageForm(onSubmitForm?: MessageFormSubmitHandler) {
@@ -33,10 +34,18 @@ export function useMessageForm(onSubmitForm?: MessageFormSubmitHandler) {
     setErro('')
 
     try {
-      await onSubmitForm?.(formData)
-      setResultado('Dados preparados para envio ao Make.')
-    } catch {
-      setErro('Nao foi possivel preparar os dados para envio.')
+      const response: MessageSubmissionResult | undefined = await onSubmitForm?.(
+        formData,
+      )
+
+      setResultado(response?.mensagem || 'Dados enviados com sucesso ao Make.')
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : 'Nao foi possivel preparar os dados para envio.'
+
+      setErro(errorMessage)
     } finally {
       setLoading(false)
     }
