@@ -1,69 +1,26 @@
-import { useState, type ChangeEvent, type FormEvent } from 'react'
-
 import styles from './MessageForm.module.css'
-
-const textTypeOptions = ['E-mail corporativo', 'Resumo da reunião', 'Mensagem para whatsapp', 'Aviso institucional']
-const toneOptions = ['Formal', 'Informal', 'Urgente', 'Acolhedor']
-
-export type MessageFormData = {
-  email: string
-  nomeCargo: string
-  temaAssunto: string
-  tipoTexto: string
-  tomVoz: string
-}
+import {
+  textTypeOptions,
+  toneOptions,
+} from '../../features/message-generator/constants'
+import { useMessageForm } from '../../features/message-generator/hooks/useMessageForm'
+import type {
+  MessageFormData,
+  MessageFormSubmitHandler,
+} from '../../features/message-generator/types'
 
 type MessageFormProps = {
-  onSubmitForm?: (formData: MessageFormData) => void | Promise<void>
-}
-
-const initialFormData: MessageFormData = {
-  email: '',
-  nomeCargo: '',
-  temaAssunto: '',
-  tipoTexto: '',
-  tomVoz: '',
+  onSubmitForm?: MessageFormSubmitHandler
 }
 
 export function MessageForm({ onSubmitForm }: MessageFormProps) {
-  const [formData, setFormData] = useState<MessageFormData>(initialFormData)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [feedbackMessage, setFeedbackMessage] = useState('')
-
-  function handleChange(
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) {
-    const { name, value } = event.target
-
-    setFormData((currentFormData) => ({
-      ...currentFormData,
-      [name]: value,
-    }))
-  }
-
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-
-    const payload: MessageFormData = {
-      email: formData.email,
-      nomeCargo: formData.nomeCargo,
-      temaAssunto: formData.temaAssunto,
-      tipoTexto: formData.tipoTexto,
-      tomVoz: formData.tomVoz,
-    }
-
-    setIsSubmitting(true)
-    setFeedbackMessage('')
-
-    try {
-      await onSubmitForm?.(payload)
-      setFeedbackMessage('Dados preparados para envio ao Make.')
-    } catch {
-      setFeedbackMessage('Nao foi possivel preparar os dados para envio.')
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
+  const {
+    feedbackMessage,
+    formData,
+    handleChange,
+    handleSubmit,
+    isSubmitting,
+  } = useMessageForm(onSubmitForm)
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>

@@ -35,46 +35,6 @@
   color: #94a3b8;
 }
 
-.preview {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1.25rem;
-  border: 1px solid rgba(34, 211, 238, 0.2);
-  border-radius: 20px;
-  background: rgba(8, 47, 73, 0.28);
-}
-
-.previewTitle {
-  margin: 0;
-  font-size: 1rem;
-  color: #f8fafc;
-}
-
-.previewList {
-  display: flex;
-  flex-direction: column;
-  gap: 0.875rem;
-  margin: 0;
-}
-
-.previewItem {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-}
-
-.previewItem dt {
-  font-weight: 700;
-  color: #bae6fd;
-}
-
-.previewItem dd {
-  margin: 0;
-  color: #e2e8f0;
-  word-break: break-word;
-}
-
 @media (max-width: 640px) {
   .card {
     width: 100%;
