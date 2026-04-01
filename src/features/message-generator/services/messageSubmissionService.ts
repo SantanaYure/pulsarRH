@@ -4,7 +4,11 @@ import type {
 } from '../types'
 
 class MockMessageSubmissionService implements MessageSubmissionService {
-  constructor(private readonly delayMs: number) {}
+  private readonly delayMs: number
+
+  constructor(delayMs: number) {
+    this.delayMs = delayMs
+  }
 
   async submit(formData: MessageFormData): Promise<void> {
     await new Promise((resolve) => setTimeout(resolve, this.delayMs))

@@ -4,10 +4,7 @@ import {
   toneOptions,
 } from '../../features/message-generator/constants'
 import { useMessageForm } from '../../features/message-generator/hooks/useMessageForm'
-import type {
-  MessageFormData,
-  MessageFormSubmitHandler,
-} from '../../features/message-generator/types'
+import type { MessageFormSubmitHandler } from '../../features/message-generator/types'
 
 type MessageFormProps = {
   onSubmitForm?: MessageFormSubmitHandler
