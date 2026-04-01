@@ -10,8 +10,9 @@ export function useMessageForm(onSubmitForm?: MessageFormSubmitHandler) {
   const [formData, setFormData] = useState<MessageFormData>(
     initialMessageFormData,
   )
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [feedbackMessage, setFeedbackMessage] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [resultado, setResultado] = useState('')
+  const [erro, setErro] = useState('')
 
   function handleChange(
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -27,24 +28,26 @@ export function useMessageForm(onSubmitForm?: MessageFormSubmitHandler) {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    setIsSubmitting(true)
-    setFeedbackMessage('')
+    setLoading(true)
+    setResultado('')
+    setErro('')
 
     try {
       await onSubmitForm?.(formData)
-      setFeedbackMessage('Dados preparados para envio ao Make.')
+      setResultado('Dados preparados para envio ao Make.')
     } catch {
-      setFeedbackMessage('Nao foi possivel preparar os dados para envio.')
+      setErro('Nao foi possivel preparar os dados para envio.')
     } finally {
-      setIsSubmitting(false)
+      setLoading(false)
     }
   }
 
   return {
-    feedbackMessage,
+    erro,
     formData,
     handleChange,
     handleSubmit,
-    isSubmitting,
+    loading,
+    resultado,
   }
 }

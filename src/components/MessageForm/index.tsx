@@ -12,11 +12,12 @@ type MessageFormProps = {
 
 export function MessageForm({ onSubmitForm }: MessageFormProps) {
   const {
-    feedbackMessage,
+    erro,
     formData,
     handleChange,
     handleSubmit,
-    isSubmitting,
+    loading,
+    resultado,
   } = useMessageForm(onSubmitForm)
 
   return (
@@ -100,12 +101,16 @@ export function MessageForm({ onSubmitForm }: MessageFormProps) {
         </div>
       </fieldset>
 
-      <button className={styles.submit} type="submit" disabled={isSubmitting}>
-        {isSubmitting ? 'GERANDO...' : 'GERAR MENSAGEM'}
+      <button className={styles.submit} type="submit" disabled={loading}>
+        {loading ? 'GERANDO...' : 'GERAR MENSAGEM'}
       </button>
 
-      {feedbackMessage ? (
-        <p className={styles.feedback}>{feedbackMessage}</p>
+      {resultado ? (
+        <p className={styles.feedbackSuccess}>{resultado}</p>
+      ) : null}
+
+      {erro ? (
+        <p className={styles.feedbackError}>{erro}</p>
       ) : null}
     </form>
   )
