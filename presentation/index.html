@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pulsar RH - Apresentação</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .presentation-container {
+            width: 100%;
+            max-width: 1000px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .slides-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 62.5%;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 60px 80px;
+            background: white;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            animation: none;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 1;
+            z-index: 10;
+        }
+
+        /* Slide Backgrounds */
+        .slide-title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .slide-content {
+            background: white;
+        }
+
+        .slide:nth-child(2) {
+            background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
+        }
+
+        .slide:nth-child(3) {
+            background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
+        }
+
+        .slide:nth-child(4) {
+            background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
+        }
+
+        .slide:nth-child(5) {
+            background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
+        }
+
+        .slide:nth-child(6) {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 3.5em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        .slide-title h2 {
+            color: white;
+            border-bottom: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .slide:nth-child(6) h2 {
+            color: white;
+            border-bottom: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .slide-title p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.3em;
+        }
+
+        .slide:nth-child(6) p {
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        ul {
+            margin-left: 40px;
+            font-size: 1.1em;
+            line-height: 2;
+        }
+
+        li {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .slide:nth-child(6) li {
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: #f8f9fa;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #764ba2;
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .slide-counter {
+            font-size: 1.1em;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #e0e0e0;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Subtitle for title slide */
+        .subtitle {
+            font-size: 1.5em;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 20px;
+        }
+
+        /* Accent for content slides */
+        .accent {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .slide:nth-child(6) .accent {
+            color: #fff;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 40px 30px;
+            }
+
+            h1 {
+                font-size: 2.5em;
+            }
+
+            h2 {
+                font-size: 1.8em;
+            }
+
+            p {
+                font-size: 1em;
+            }
+
+            ul {
+                font-size: 0.95em;
+                margin-left: 25px;
+            }
+
+            .controls {
+                padding: 15px 20px;
+            }
+
+            button {
+                padding: 8px 15px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+
+        <div class="slides-wrapper">
+            <!-- Slide 1: Title -->
+            <div class="slide slide-title active">
+                <h1>Pulsar RH</h1>
+                <p class="subtitle">Automatizando a comunicação corporativa com IA Generativa</p>
+            </div>
+
+            <!-- Slide 2: Contexto -->
+            <div class="slide slide-content">
+                <h2>Contexto: O Problema</h2>
+                <p>No dia a dia do RH, a produção de <span class="accent">textos corporativos consome tempo e energia</span>.</p>
+                <p>E-mails, avisos institucionais, mensagens para WhatsApp e resumos de reunião precisam ser escritos com clareza, coerência e alinhamento ao tom da empresa.</p>
+                <p><span class="accent">Esse processo é repetitivo, lento e muitas vezes inconsistente</span>.</p>
+            </div>
+
+            <!-- Slide 3: Ferramenta -->
+            <div class="slide slide-content">
+                <h2>Ferramenta: A Justificativa</h2>
+                <p>A <span class="accent">IA Generativa foi escolhida</span> porque consegue gerar textos adaptados ao contexto, ao formato e ao tom de voz desejado.</p>
+                <p>Diferente de templates fixos, um <span class="accent">modelo de linguagem consegue transformar o mesmo conteúdo em diferentes formatos</span> com qualidade.</p>
+                <p>Isso permite <span class="accent">automatizar a escrita sem perder flexibilidade</span>.</p>
+            </div>
+
+            <!-- Slide 4: Como Funciona - Visão Geral -->
+            <div class="slide slide-content">
+                <h2>Como Funciona: A Solução</h2>
+                <p>O <span class="accent">Pulsar RH é uma aplicação web</span> que gera mensagens corporativas automaticamente.</p>
+                <p>O usuário informa:</p>
+                <ul>
+                    <li>Nome e cargo</li>
+                    <li>Tema ou assunto</li>
+                    <li>Tipo de texto (e-mail, WhatsApp, resumo ou aviso)</li>
+                    <li>Tom de voz (formal, informal, urgente ou acolhedor)</li>
+                </ul>
+            </div>
+
+            <!-- Slide 5: Como Funciona - Processo Técnico -->
+            <div class="slide slide-content">
+                <h2>Fluxo Técnico da Solução</h2>
+                <p>A aplicação envia esses dados para uma <span class="accent">automação no Make.com</span>, que aciona o modelo <span class="accent">Google Gemini</span>.</p>
+                <p>A IA processa o prompt e <span class="accent">retorna uma mensagem pronta para uso</span>, já estruturada e adequada ao contexto.</p>
+                <p><strong>Resultado:</strong> menos tempo escrevendo e mais consistência na comunicação.</p>
+            </div>
+
+            <!-- Slide 6: Conclusão -->
+            <div class="slide slide-title">
+                <h2>Pulsar RH</h2>
+                <p>Transformando a forma como o RH se comunica</p>
+                <p style="margin-top: 40px; font-size: 1.1em;">
+                    ✨ Automação inteligente<br>
+                    📝 Textos de qualidade<br>
+                    ⚡ Mais eficiência<br>
+                    🎯 Consistência garantida
+                </p>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="prevBtn" onclick="changeSlide(-1)">← Anterior</button>
+            <span class="slide-counter"><span id="currentSlide">1</span> / <span id="totalSlides">6</span></span>
+            <button id="nextBtn" onclick="changeSlide(1)">Próximo →</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 6;
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+
+            if (n > totalSlides) {
+                currentSlide = totalSlides;
+            } else if (n < 1) {
+                currentSlide = 1;
+            }
+
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[currentSlide - 1].classList.add('active');
+
+            document.getElementById('currentSlide').textContent = currentSlide;
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+
+            // Update progress bar
+            const progress = (currentSlide / totalSlides) * 100;
+            document.querySelector('.progress-fill').style.width = progress + '%';
+        }
+
+        function changeSlide(n) {
+            currentSlide += n;
+            showSlide(currentSlide);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+            if (e.key === 'ArrowRight') changeSlide(1);
+        });
+
+        // Initialize
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>
